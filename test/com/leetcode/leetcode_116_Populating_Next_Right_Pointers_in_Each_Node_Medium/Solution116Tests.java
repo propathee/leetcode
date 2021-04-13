@@ -1,14 +1,13 @@
 package com.leetcode.leetcode_116_Populating_Next_Right_Pointers_in_Each_Node_Medium;
 
-import com.leetcode.leetcode_116_Populating_Next_Right_Pointers_in_Each_Node_Medium.Solution116.Node;
+import com.leetcode.utils.Node;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static com.leetcode.utils.NodeTests.assertRightNeighbourConnectedTreeEquals;
 
 public class Solution116Tests {
     private Solution116 solution = Solution116.newSolution();
@@ -17,7 +16,7 @@ public class Solution116Tests {
     public void should_pass_1() {
         Node root = makePerfectTree(1,2,3,4,5,6,7);
         Node expect = makePerfectTreeWithNextPointersPopulated(1,2,3,4,5,6,7);
-        assertPass(expect, solution.connect(root));
+        assertRightNeighbourConnectedTreeEquals(expect, solution.connect(root));
     }
 
     private Node makePerfectTree(Integer... values) {
@@ -59,20 +58,5 @@ public class Solution116Tests {
             }
         }
         return root;
-    }
-
-    private void assertPass(Node expect, Node actual) {
-        if (expect == null) {
-            assertNull(actual);
-        } else {
-            assertEquals(expect.val, actual.val);
-            assertPass(expect.left, actual.left);
-            assertPass(expect.right, actual.right);
-            if (expect.next == null) {
-                assertNull(actual.next);
-            } else {
-                assertEquals(expect.next.val, actual.next.val);
-            }
-        }
     }
 }

@@ -1,30 +1,12 @@
 package com.leetcode.leetcode_116_Populating_Next_Right_Pointers_in_Each_Node_Medium;
 
+import com.leetcode.utils.Node;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 abstract class Solution116 {
     public abstract Node connect(Node root);
-
-    static class Node {
-        public int val;
-        public Node left;
-        public Node right;
-        public Node next;
-
-        public Node() {}
-
-        public Node(int _val) {
-            val = _val;
-        }
-
-        public Node(int _val, Node _left, Node _right, Node _next) {
-            val = _val;
-            left = _left;
-            right = _right;
-            next = _next;
-        }
-    }
 
     static Solution116 newSolution() {
         return new S4();
