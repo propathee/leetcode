@@ -11,4 +11,13 @@ public class ListNodeTests {
         }
         return dummy.next;
     }
+
+    public static void assertLinkedListEquals(ListNode expect, ListNode actual) {
+        if (expect == null) {
+            assertNull(actual);
+        } else {
+            assertEquals(expect.val, actual.val);
+            assertLinkedListEquals(expect.next, actual.next);
+        }
+    }
 }
