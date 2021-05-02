@@ -21,7 +21,7 @@ abstract class Solution94 {
     }
 
     static Solution94 newSolution() {
-        return new S3();
+        return new S4();
     }
 
     private static class S1 extends Solution94 {
@@ -72,6 +72,34 @@ abstract class Solution94 {
                     node = stack.pop();
                     res.add(node.val);
                     node = node.right;
+                }
+            }
+            return res;
+        }
+    }
+
+    private static class S4 extends Solution94 {
+        @Override
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            TreeNode node = root;
+            while (node != null) {
+                if (node.left == null) {
+                    res.add(node.val);
+                    node = node.right;
+                } else {
+                    TreeNode pre = node.left;
+                    while (pre.right != null && pre.right != node) {
+                        pre = pre.right;
+                    }
+                    if (pre.right == null) {
+                        pre.right = node;
+                        node = node.left;
+                    } else {
+                        res.add(node.val);
+                        node = node.right;
+                        pre.right = null;
+                    }
                 }
             }
             return res;

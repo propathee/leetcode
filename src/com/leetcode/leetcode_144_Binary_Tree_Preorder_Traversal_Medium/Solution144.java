@@ -10,7 +10,7 @@ abstract class Solution144 {
     public abstract List<Integer> preorderTraversal(TreeNode root);
 
     static Solution144 newSolution() {
-        return new S3();
+        return new S4();
     }
 
     private static class S1 extends Solution144 {
@@ -65,6 +65,34 @@ abstract class Solution144 {
                 }
             }
             return values;
+        }
+    }
+
+    private static class S4 extends Solution144 {
+        @Override
+        public List<Integer> preorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            TreeNode node = root;
+            while (node != null) {
+                if (node.left == null) {
+                    res.add(node.val);
+                    node = node.right;
+                } else {
+                    TreeNode pre = node.left;
+                    while (pre.right != null && pre.right != node) {
+                        pre = pre.right;
+                    }
+                    if (pre.right == null) {
+                        pre.right = node;
+                        res.add(node.val);
+                        node = node.left;
+                    } else {
+                        node = node.right;
+                        pre.right = null;
+                    }
+                }
+            }
+            return res;
         }
     }
 }

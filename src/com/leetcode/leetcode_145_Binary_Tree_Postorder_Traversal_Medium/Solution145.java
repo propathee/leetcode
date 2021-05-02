@@ -11,7 +11,7 @@ abstract class Solution145 {
     public abstract List<Integer> postorderTraversal(TreeNode root);
 
     static Solution145 newSolution() {
-        return new S7();
+        return new S9();
     }
 
     private static class S1 extends Solution145 {
@@ -193,6 +193,80 @@ abstract class Solution145 {
                     }
                 }
             }
+            return values;
+        }
+    }
+
+    private static class S8 extends Solution145 {
+        @Override
+        public List<Integer> postorderTraversal(TreeNode root) {
+            List<Integer> values = new ArrayList<>();
+            TreeNode dummy = new TreeNode(0);
+            dummy.left = root;
+            TreeNode node = dummy;
+            while (node != null) {
+                if (node.left == null) {
+                    node = node.right;
+                } else {
+                    TreeNode pre = node.left;
+                    while (pre.right != null && pre.right != node) {
+                        pre = pre.right;
+                    }
+                    if (pre.right == null) {
+                        pre.right = node;
+                        node = node.left;
+                    } else {
+                        pre = node.left;
+                        int cnt = 1;
+                        while (pre.right != null && pre.right != node){
+                            values.add(pre.val);
+                            pre = pre.right;
+                            cnt++;
+                        }
+                        values.add(pre.val);
+                        pre.right = null;
+                        reverse(values, values.size() - cnt, values.size() - 1);
+                        node = node.right;
+                    }
+                }
+            }
+            return values;
+        }
+
+        private void reverse(List<Integer> values, int left, int right) {
+            for (; left < right; left++, right--) {
+                int tmp = values.get(left);
+                values.set(left, values.get(right));
+                values.set(right, tmp);
+            }
+        }
+    }
+
+    private static class S9 extends Solution145 {
+        @Override
+        public List<Integer> postorderTraversal(TreeNode root) {
+            List<Integer> values = new ArrayList<>();
+            TreeNode node = root;
+            while (node != null) {
+                if (node.right == null) {
+                    values.add(node.val);
+                    node = node.left;
+                } else {
+                    TreeNode pre = node.right;
+                    while (pre.left != null && pre.left != node) {
+                        pre = pre.left;
+                    }
+                    if (pre.left == null) {
+                        values.add(node.val);
+                        pre.left = node;
+                        node = node.right;
+                    } else {
+                        node = node.left;
+                        pre.left = null;
+                    }
+                }
+            }
+            Collections.reverse(values);
             return values;
         }
     }
