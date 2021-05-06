@@ -3,7 +3,7 @@ package com.leetcode.leetcode_142_Linked_List_Cycle_II_Medium;
 import com.leetcode.utils.ListNode;
 import org.junit.Test;
 
-import static com.leetcode.utils.ListNodeTests.makeList;
+import static com.leetcode.utils.ListNodeTests.makeLinkedList;
 import static org.junit.Assert.*;
 
 public class Solution142Tests {
@@ -11,21 +11,21 @@ public class Solution142Tests {
 
     @Test
     public void should_pass_1() {
-        ListNode head = makeList(3,2,0,-4);
+        ListNode head = makeLinkedList(3,2,0,-4);
         ListNode cycleHead = joinAndGetCycleHead(head, 1);
         assertSame(cycleHead, solution.detectCycle(head));
     }
 
     @Test
     public void should_pass_2() {
-        ListNode head = makeList(1,2);
+        ListNode head = makeLinkedList(1,2);
         ListNode cycleHead = joinAndGetCycleHead(head, 0);
         assertSame(cycleHead, solution.detectCycle(head));
     }
 
     @Test
     public void should_pass_3() {
-        ListNode head = makeList(1);
+        ListNode head = makeLinkedList(1);
         ListNode cycleHead = joinAndGetCycleHead(head, -1);
         assertSame(cycleHead, solution.detectCycle(head));
     }
