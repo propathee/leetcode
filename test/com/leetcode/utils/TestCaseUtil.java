@@ -24,4 +24,26 @@ public class TestCaseUtil {
             .map(Integer::parseInt)
             .collect(Collectors.toList());
     }
+
+    public static int[][] parseTwoDimensionalIntArray(String s) {
+        if (s.isEmpty() || "[]".equals(s)) {
+            return new int[0][0];
+        }
+        s = s.substring(1, s.length() - 1).replace("[", "");
+        return Arrays.stream(s.split("],"))
+            .map(TestCaseUtil::parseIntArray)
+            .toArray(int[][]::new);
+    }
+
+    private static int[] parseIntArray(String s) {
+        if (s.isEmpty()) {
+            return new int[0];
+        }
+        String[] sArr = s.split(",");
+        int[] res = new int[sArr.length];
+        for (int i = 0; i < sArr.length; i++) {
+            res[i] = Integer.parseInt(sArr[i]);
+        }
+        return res;
+    }
 }
